@@ -54,4 +54,11 @@
             android:src="@drawable/img_beatmung" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/indicator"
+        android:text="@string/start" />
+
 </RelativeLayout>
