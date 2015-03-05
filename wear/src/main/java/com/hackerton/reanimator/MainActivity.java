@@ -2,10 +2,14 @@ package com.hackerton.reanimator;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
+
+    private CountDownTimer mCountDownTimer;
 
     private TextView mTextView;
 
@@ -18,7 +22,34 @@ public class MainActivity extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
+                vibrate();
+
             }
         });
     }
+
+
+    private void vibrate() {
+        final Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
+        mCountDownTimer = new CountDownTimer(30000, 1000) {
+            int count = 1;
+
+            @Override
+            public void onFinish() {
+                mCountDownTimer.cancel();
+            }
+
+            @Override
+            public void onTick(final long l) {
+                count++;
+                vibrator.vibrate(200);
+                mTextView.setText(String.valueOf(count));
+            }
+        };
+        mCountDownTimer.start();
+
+
+    }
+
 }
