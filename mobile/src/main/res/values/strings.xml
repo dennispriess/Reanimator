@@ -3,4 +3,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="title_intro">Intro</string>
+    <string name="title_reanimation">Reanimation</string>
+    <string name="next">Next</string>
+
+    <string name="timer">vergangene Zeit</string>
+    <string name="timer_heart">Herzdruckmassage</string>
+    <string name="timer_breath">Beatmung</string>
 </resources>
