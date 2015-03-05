@@ -27,9 +27,6 @@ public class IntroAdapter extends FragmentPagerAdapter {
             case 1:
                 bundle.putInt(IntroPageFragment.EXTRA_PAGE, IntroPageFragment.PAGE_2);
                 break;
-            case 2:
-                bundle.putInt(IntroPageFragment.EXTRA_PAGE, IntroPageFragment.PAGE_3);
-                break;
         }
         fragment.setArguments(bundle);
         return fragment;

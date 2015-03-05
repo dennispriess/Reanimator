@@ -5,9 +5,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.hackerton.reanimator.R;
 import com.hackerton.reanimator.ui.BaseFragment;
+import com.hackerton.reanimator.ui.reanimation.activities.ReanimationActivity;
 
 /**
  * Created by traxdata on 05/03/15.
@@ -18,9 +20,8 @@ public class IntroPageFragment extends BaseFragment {
 
     public static final int PAGE_1 = 0;
     public static final int PAGE_2 = 1;
-    public static final int PAGE_3 = 2;
 
-    public static final int PAGE_COUNT = 3;
+    public static final int PAGE_COUNT = 2;
 
     public static final String EXTRA_PAGE = TAG + "_page";
 
@@ -47,13 +48,19 @@ public class IntroPageFragment extends BaseFragment {
             case PAGE_2:
                 resource = R.layout.fragment_into_02;
                 break;
-            case PAGE_3:
-                resource = R.layout.fragment_into_03;
-                break;
         }
 
         final View view = inflater.inflate(resource, container, false);
-
+        Button startButton = (Button) view.findViewById(R.id.start);
+        if (startButton != null) {
+            startButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(ReanimationActivity.getIntent(getActivity()));
+                    getActivity().finish();
+                }
+            });
+        }
         return view;
     }
 
