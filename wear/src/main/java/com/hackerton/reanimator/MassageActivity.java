@@ -73,6 +73,7 @@ public class MassageActivity extends GooglePlayServicesActivity {
             public void onFinish() {
                 mCountDownTimer.cancel();
                 startActivity(new Intent(MassageActivity.this, BreathActivity.class));
+                MassageActivity.this.finish();
 
             }
 

@@ -1,12 +1,15 @@
 package com.hackerton.reanimator.ui.reanimation.activities;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.DataItem;
 import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.DataMapItem;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
 import com.hackerton.reanimator.R;
@@ -45,6 +48,8 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
     public static final String PUSH_COUNT_KEY = "count_push";
 
     public static final String BREATH_COUNT_KEY = "count_breath";
+
+    private static final String START_ACTIVITY_PATH = "/start-activity";
 
     private static final String TAG = ReanimationActivity.class.getCanonicalName();
 
@@ -99,6 +104,7 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
     public void onConnected(Bundle connectionHint) {
         super.onConnected(connectionHint);
         Wearable.DataApi.addListener(getGoogleApiClient(), this);
+        sendWearActivityStart();
     }
 
     @Override
@@ -144,6 +150,15 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
                 }
             }
         });
+    }
+
+    private void sendWearActivityStart() {
+
+        PutDataMapRequest putDataMapReq = PutDataMapRequest.create(START_ACTIVITY_PATH);
+        PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
+        PendingResult<DataApi.DataItemResult> pendingResult =
+                Wearable.DataApi.putDataItem(getGoogleApiClient(), putDataReq);
+
     }
 
     private void updateBreathCount(final int count) {

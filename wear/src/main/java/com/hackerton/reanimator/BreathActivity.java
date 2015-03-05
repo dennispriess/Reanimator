@@ -75,6 +75,7 @@ public class BreathActivity extends GooglePlayServicesActivity {
             public void onFinish() {
                 mCountDownTimer.cancel();
                 startActivity(new Intent(BreathActivity.this, MassageActivity.class));
+                BreathActivity.this.finish();
             }
 
             @Override
