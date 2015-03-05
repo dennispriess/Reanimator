@@ -106,24 +106,56 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
     }
 
     private void onReanimationStart() {
-
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mReanimationFragment != null) {
+                    mReanimationFragment.startTimer();
+                }
+            }
+        });
     }
 
     private void onReanimationStop() {
-
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mReanimationFragment != null) {
+                    mReanimationFragment.startTimer();
+                }
+            }
+        });
     }
 
     private void updatePushCount(final int count) {
-
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mReanimationFragment != null) {
+                    mReanimationFragment.setPushCount(count);
+                }
+            }
+        });
     }
 
-    private void updateBreathCount(final int counn) {
-
+    private void updateBreathCount(final int count) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mReanimationFragment != null) {
+                    mReanimationFragment.setBreathCount(count);
+                }
+            }
+        });
     }
 
     public static interface ReanimationCommunicationInterface {
         void startTimer();
 
         void stopTimer();
+
+        void setPushCount(int count);
+
+        void setBreathCount(int count);
     }
 }
