@@ -7,7 +7,7 @@ import android.os.Vibrator;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MassageActivity extends Activity {
 
     private CountDownTimer mCountDownTimer;
 
