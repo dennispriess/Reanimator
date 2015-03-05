@@ -4,6 +4,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="intro_herzudruckmassage">Drücken Sie mit gestreckten Armen und geradem Rücken den Brustkorb fünf bis sechs Zentimeter ein. Nach jedem Druck entlasten Sie den Brustkorb vollständig. Drücken Sie im Rhythmus der Vibration Ihrer Smartwatch.</string>
+    <string name="intro_beatmung">Wenn der Screen Ihrer Uhr blau wird, atmen Sie normal ein und blasen Sie dann gleichmäßig für die Dauer der Vibration in Mund oder Nase.</string>
+
     <string name="title_intro">Intro</string>
     <string name="title_reanimation">Reanimation</string>
     <string name="next">Next</string>
