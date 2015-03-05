@@ -21,8 +21,6 @@ public class ReanimationFragment extends BaseFragment
 
     private static Handler HANDLER = new Handler();
 
-    private boolean mAlreadyStarted;
-
     private TextView mBreathCountTextView;
 
     private TextView mPushCountTextView;
@@ -34,6 +32,8 @@ public class ReanimationFragment extends BaseFragment
     private long mTimerUpdateDelay = 200;
 
     private long mtTimeInMilliseconds;
+
+    private boolean started = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -57,18 +57,23 @@ public class ReanimationFragment extends BaseFragment
 
     @Override
     public void setBreathCount(int count) {
+        startTimer();
+        mPushCountTextView.setText("0");
         mBreathCountTextView.setText(String.valueOf(count));
     }
 
     @Override
     public void setPushCount(int count) {
+        startTimer();
+        mBreathCountTextView.setText("0");
+
         mPushCountTextView.setText(String.valueOf(count));
     }
 
     @Override
     public void startTimer() {
-        if (!mAlreadyStarted) {
-            mAlreadyStarted = true;
+        if (!started) {
+            started = true;
             mStartTime = SystemClock.uptimeMillis();
             HANDLER.postDelayed(new Runnable() {
                 @Override
@@ -85,8 +90,8 @@ public class ReanimationFragment extends BaseFragment
                     HANDLER.postDelayed(this, mTimerUpdateDelay);
                 }
             }, 0);
-
         }
+
     }
 
     @Override

@@ -86,9 +86,7 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        if (mReanimationFragment != null) {
-            mReanimationFragment.startTimer();
-        }
+        sendWearActivityStart();
     }
 
     @Override
@@ -104,7 +102,6 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
     public void onConnected(Bundle connectionHint) {
         super.onConnected(connectionHint);
         Wearable.DataApi.addListener(getGoogleApiClient(), this);
-        sendWearActivityStart();
     }
 
     @Override
