@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
 
+import com.hackerton.reanimator.AppConsts;
 import com.hackerton.reanimator.R;
 import com.hackerton.reanimator.ui.BaseActivity;
 import com.hackerton.reanimator.ui.intro.adapter.IntroAdapter;
@@ -45,6 +46,7 @@ public class IntroActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (mPager.getCurrentItem() >= IntroPageFragment.PAGE_COUNT - 1) {
+                    mSharedPreferences.edit().putBoolean(AppConsts.PREFS.FIRSTLAUNCH, false).apply();
                     startActivity(ReanimationActivity.getIntent(IntroActivity.this));
                     finish();
                 } else {

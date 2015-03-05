@@ -3,7 +3,6 @@ package com.hackerton.reanimator.ui.reanimation.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.DataApi;
@@ -47,13 +46,13 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
             mReanimationFragment = new ReanimationFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new ReanimationFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment, mReanimationFragment).commit();
         }
     }
 
@@ -63,9 +62,18 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (mReanimationFragment != null)
+            mReanimationFragment.startTimer();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         Wearable.DataApi.removeListener(getGoogleApiClient(), this);
+        if (mReanimationFragment != null)
+            mReanimationFragment.stopTimer();
     }
 
     @Override
@@ -114,6 +122,8 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
     }
 
     public static interface ReanimationCommunicationInterface {
+        void startTimer();
 
+        void stopTimer();
     }
 }
