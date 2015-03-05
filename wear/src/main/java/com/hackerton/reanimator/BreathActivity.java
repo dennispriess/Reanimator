@@ -10,7 +10,7 @@ import android.widget.TextView;
 /**
  * Created by dennispriess on 05/03/15.
  */
-public class BreathActivity extends Activity {
+public class BreathActivity extends GooglePlayServicesActivity {
 
     private CountDownTimer mCountDownTimer;
 

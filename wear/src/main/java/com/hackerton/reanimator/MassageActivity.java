@@ -1,13 +1,12 @@
 package com.hackerton.reanimator;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
 
-public class MassageActivity extends Activity {
+public class MassageActivity extends GooglePlayServicesActivity {
 
     private CountDownTimer mCountDownTimer;
 

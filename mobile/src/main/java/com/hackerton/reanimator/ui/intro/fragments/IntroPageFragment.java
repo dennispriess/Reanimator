@@ -18,9 +18,8 @@ public class IntroPageFragment extends BaseFragment {
 
     public static final int PAGE_1 = 0;
     public static final int PAGE_2 = 1;
-    public static final int PAGE_3 = 2;
 
-    public static final int PAGE_COUNT = 3;
+    public static final int PAGE_COUNT = 2;
 
     public static final String EXTRA_PAGE = TAG + "_page";
 
@@ -46,9 +45,6 @@ public class IntroPageFragment extends BaseFragment {
                 break;
             case PAGE_2:
                 resource = R.layout.fragment_into_02;
-                break;
-            case PAGE_3:
-                resource = R.layout.fragment_into_03;
                 break;
         }
 
