@@ -1,9 +1,5 @@
 package com.hackerton.reanimator.ui.reanimation.activities;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.DataEvent;
@@ -12,9 +8,14 @@ import com.google.android.gms.wearable.DataItem;
 import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.Wearable;
+
 import com.hackerton.reanimator.R;
 import com.hackerton.reanimator.ui.GooglePlayServicesActivity;
 import com.hackerton.reanimator.ui.reanimation.fragments.ReanimationFragment;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 
 /**
  * Created by traxdata on 05/03/15.
@@ -22,21 +23,32 @@ import com.hackerton.reanimator.ui.reanimation.fragments.ReanimationFragment;
 public class ReanimationActivity extends GooglePlayServicesActivity implements
         DataApi.DataListener {
 
-    private static final String TAG = ReanimationActivity.class.getCanonicalName();
+    public static interface ReanimationCommunicationInterface {
+
+        void setBreathCount(int count);
+
+        void setPushCount(int count);
+
+        void startTimer();
+
+        void stopTimer();
+    }
 
     public static final String START_URI = "/start";
+
     public static final String STOP_URI = "/stop";
+
     public static final String PUSH_COUNT_URI = "/count_breath";
+
     public static final String BREATH_COUNT_URI = "/count_push";
 
-    public static final String PUSH_COUNT_KEY = TAG + "_count_push";
-    public static final String BREATH_COUNT_KEY = TAG + "_count_breath";
+    public static final String PUSH_COUNT_KEY = "count_push";
+
+    public static final String BREATH_COUNT_KEY = "count_breath";
+
+    private static final String TAG = ReanimationActivity.class.getCanonicalName();
 
     private ReanimationFragment mReanimationFragment;
-
-    public static Intent getIntent(final Context context) {
-        return new Intent(context, ReanimationActivity.class);
-    }
 
     @Override
     protected GoogleApiClient.Builder customizeGoogleClient(GoogleApiClient.Builder builder) {
@@ -52,7 +64,25 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
 
         if (savedInstanceState == null) {
             mReanimationFragment = new ReanimationFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment, mReanimationFragment).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment, mReanimationFragment).commit();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Wearable.DataApi.removeListener(getGoogleApiClient(), this);
+        if (mReanimationFragment != null) {
+            mReanimationFragment.stopTimer();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mReanimationFragment != null) {
+            mReanimationFragment.startTimer();
         }
     }
 
@@ -61,19 +91,8 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
         super.onStart();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mReanimationFragment != null)
-            mReanimationFragment.startTimer();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Wearable.DataApi.removeListener(getGoogleApiClient(), this);
-        if (mReanimationFragment != null)
-            mReanimationFragment.stopTimer();
+    public static Intent getIntent(final Context context) {
+        return new Intent(context, ReanimationActivity.class);
     }
 
     @Override
@@ -127,17 +146,6 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
         });
     }
 
-    private void updatePushCount(final int count) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (mReanimationFragment != null) {
-                    mReanimationFragment.setPushCount(count);
-                }
-            }
-        });
-    }
-
     private void updateBreathCount(final int count) {
         runOnUiThread(new Runnable() {
             @Override
@@ -149,13 +157,14 @@ public class ReanimationActivity extends GooglePlayServicesActivity implements
         });
     }
 
-    public static interface ReanimationCommunicationInterface {
-        void startTimer();
-
-        void stopTimer();
-
-        void setPushCount(int count);
-
-        void setBreathCount(int count);
+    private void updatePushCount(final int count) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mReanimationFragment != null) {
+                    mReanimationFragment.setPushCount(count);
+                }
+            }
+        });
     }
 }
