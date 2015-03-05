@@ -48,6 +48,13 @@
             android:textSize="32sp"
             android:text="@string/timer_heart" />
 
+        <TextView
+            android:id="@+id/push_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="39" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -65,6 +72,13 @@
             android:textColor="@color/white"
             android:textSize="32sp"
             android:text="@string/timer_breath" />
+
+        <TextView
+            android:id="@+id/breath_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="21" />
     </LinearLayout>
 
 </LinearLayout>
